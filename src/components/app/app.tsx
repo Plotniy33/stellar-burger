@@ -32,7 +32,7 @@ const App = () => {
     dispatch(getProfile());
   }, [dispatch]);
 
-  const Back = () => {
+  const navBack = () => {
     navigate(-1);
   };
 
@@ -91,13 +91,39 @@ const App = () => {
           }
         />
         <Route path='*' element={<NotFound404 />} />
+        <Route
+          path='/feed/:number'
+          element={
+            <Modal title='Детали заказа' onClose={navBack}>
+              <OrderInfo />
+            </Modal>
+          }
+        />
+        <Route
+          path='/ingredients/:id'
+          element={
+            <Modal title='Детали ингредиента' onClose={navBack}>
+              <IngredientDetails />
+            </Modal>
+          }
+        />
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <ProtectedRoute>
+              <Modal title='Детали заказа' onClose={navBack}>
+                <OrderInfo />
+              </Modal>
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       {backgroundLocation && (
         <Routes>
           <Route
             path='/feed/:number'
             element={
-              <Modal title='Детали заказа' onClose={Back}>
+              <Modal title='Детали заказа' onClose={navBack}>
                 <OrderInfo />
               </Modal>
             }
@@ -105,7 +131,7 @@ const App = () => {
           <Route
             path='/ingredients/:id'
             element={
-              <Modal title='Детали ингредиента' onClose={Back}>
+              <Modal title='Детали ингредиента' onClose={navBack}>
                 <IngredientDetails />
               </Modal>
             }
@@ -114,7 +140,7 @@ const App = () => {
             path='/profile/orders/:number'
             element={
               <ProtectedRoute>
-                <Modal title='Детали заказа' onClose={Back}>
+                <Modal title='Детали заказа' onClose={navBack}>
                   <OrderInfo />
                 </Modal>
               </ProtectedRoute>

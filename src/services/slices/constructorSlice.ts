@@ -15,8 +15,6 @@ const initialState: ConstructorSliceState = {
   }
 };
 
-const id = nanoid();
-
 const constructorSlice = createSlice({
   name: 'constructorBurger',
   initialState,
@@ -32,7 +30,10 @@ const constructorSlice = createSlice({
           state.constructorItems.ingredients.push(action.payload);
         }
       },
-      prepare: (ingredient: TIngredient) => ({ payload: { ...ingredient, id } })
+      prepare: (ingredient: TIngredient) => {
+        const id = nanoid();
+        return { payload: { ...ingredient, id } };
+      }
     },
     ingredientMoveUp: (state, action: PayloadAction<number>) => {
       state.constructorItems.ingredients.splice(
