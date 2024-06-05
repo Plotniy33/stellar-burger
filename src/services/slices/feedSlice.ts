@@ -1,4 +1,8 @@
-import { getFeedsApi, getOrderByNumberApi, getOrdersApi } from '@api';
+import {
+  getFeedsApi,
+  getOrderByNumberApi,
+  getOrdersApi
+} from '../../utils/burger-api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 
@@ -12,7 +16,7 @@ interface FeedSliceState {
   error?: string | null;
 }
 
-const initialState: FeedSliceState = {
+export const initialState: FeedSliceState = {
   orders: [],
   orderModalData: [],
   profileOrders: [],
@@ -57,6 +61,7 @@ const feedSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
+
       .addCase(getOrders.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -69,6 +74,7 @@ const feedSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
+
       .addCase(getOrderByNumber.pending, (state) => {
         state.loading = true;
         state.error = null;
